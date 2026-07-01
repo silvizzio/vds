@@ -1,0 +1,106 @@
+---
+title: Modal
+description: Focuses the operator on a single task or decision by layering content above the current view and blocking interaction behind it.
+status: stable
+category: Overlays
+---
+
+<Overview>
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    { label: "Scrim", description: "Dims and slightly blurs the page behind, signalling the rest is inert." },
+    { label: "Panel", description: "The focused surface, sized sm/md/lg and centred in the viewport." },
+    { label: "Header", description: "Title and optional description naming the task." },
+    { label: "Close control", description: "Top-right dismiss, labelled for assistive tech." },
+    { label: "Footer actions", description: "Right-aligned buttons, primary action last." },
+  ]}
+/>
+
+Modals interrupt. Use them only when the task must be finished or abandoned
+before continuing, such as confirming a destructive action or capturing a
+required decision. For non-blocking information, prefer a toast or inline panel.
+
+## When to use
+
+- Confirming an irreversible action (delete, reset, publish).
+- Capturing a short, required input that blocks the current flow.
+- Surfacing a focused sub-task without leaving the current view.
+
+## When not to use
+
+- Passive notifications or status. Use a toast.
+- Long forms or multi-step flows. Use a dedicated page or drawer.
+- Content the operator needs while working in the scene behind it.
+
+</Overview>
+
+<Usage>
+
+## Basic
+
+<LiveExample name="modal-basic" caption="Destructive confirmation. Cancel is ghost, the committing action is destructive and sits last." />
+
+## Guidance
+
+<DoDont>
+  <Do>Name the specific object in the title: Delete twin snapshot, not Are you sure?</Do>
+  <Dont>Rely on a generic title and bury the object in body text.</Dont>
+  <Do>Put the primary action last and match its label to the title's verb.</Do>
+  <Dont>Auto-focus the destructive action or let Enter trigger it by default.</Dont>
+</DoDont>
+
+## Behavior
+
+- Escape and scrim click both dismiss, and they map to Cancel, never to the destructive action.
+- Focus moves into the panel on open and returns to the trigger on close.
+- The panel width caps at sm/md/lg. Content scrolls inside rather than growing the panel past the viewport.
+
+</Usage>
+
+<Code>
+
+## Example
+
+<LiveExample name="modal-basic" />
+
+## Props
+
+<PropsTable
+  rows={[
+    { name: "open", type: "boolean", required: true, description: "Controls visibility. The modal is fully unmounted when false." },
+    { name: "onClose", type: "() => void", required: true, description: "Called on Escape, scrim click, or close control." },
+    { name: "title", type: "string", required: true, description: "Accessible name, wired to aria-labelledby." },
+    { name: "description", type: "string", description: "Optional supporting text, wired to aria-describedby." },
+    { name: "size", type: `"sm" | "md" | "lg"`, default: `"md"`, description: "Maximum panel width." },
+    { name: "footer", type: "ReactNode", description: "Action row, right-aligned. Place the primary action last." },
+    { name: "children", type: "ReactNode", description: "Body content." },
+  ]}
+/>
+
+</Code>
+
+<Accessibility>
+
+## Roles and structure
+
+- Panel uses `role="dialog"` with `aria-modal="true"`.
+- `aria-labelledby` points at the title, `aria-describedby` at the description when present.
+
+## Keyboard
+
+- **Escape** closes the modal and returns focus to the trigger.
+- **Tab** cycles focusable elements. Extend with a full focus trap before shipping to production.
+
+## Focus management
+
+- On open, focus moves to the panel.
+- On close, focus returns to the element that opened it.
+
+## Motion
+
+- Respect `prefers-reduced-motion`. Keep enter and exit transitions short and non-essential.
+
+</Accessibility>

@@ -1,0 +1,109 @@
+---
+title: Button
+description: Triggers an action or event, such as confirming a command, submitting a form, or opening a panel in the twin scene.
+status: stable
+category: Actions
+---
+
+<Overview>
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    { label: "Container", description: "Sets the hit area, padding, and background per variant." },
+    { label: "Label", description: "Verb-first text stating the action, in sentence case." },
+    { label: "Icon (optional)", description: "Leading or trailing glyph that reinforces the action." },
+    { label: "Focus ring", description: "2px accent ring for keyboard focus, offset from the container." },
+  ]}
+/>
+
+Buttons carry the primary actions on a surface. On dense command centre views,
+limit each panel to one primary button so operators can find the main action
+without scanning. Everything else steps down to secondary, outline, or ghost.
+
+## When to use
+
+- Committing an action: save, apply, confirm, delete.
+- Opening a modal, drawer, or panel.
+- Submitting a form or advancing a step.
+
+## When not to use
+
+- Navigating between pages or views. Use a link instead.
+- Toggling a single on/off state. Use a switch or checkbox.
+
+</Overview>
+
+<Usage>
+
+## Variants
+
+<LiveExample name="button-variants" caption="Five variants covering the full emphasis range." />
+
+Use one primary per view. Reserve destructive for irreversible actions and
+always pair it with a confirmation step.
+
+## Sizes
+
+<LiveExample name="button-sizes" caption="Small for toolbars and dense panels, medium as default, large for empty states and marketing surfaces." />
+
+## States
+
+<LiveExample name="button-disabled" caption="Disabled state removes pointer events and drops opacity. Avoid disabling submit buttons without explaining why." />
+
+## Guidance
+
+<DoDont>
+  <Do>Lead the label with a verb that names the outcome: Save changes, Delete snapshot, Apply filter.</Do>
+  <Dont>Use vague labels like OK or Submit that hide what the action does.</Dont>
+  <Do>Keep one primary button per panel so the main action stays obvious.</Do>
+  <Dont>Stack multiple primary buttons side by side and force the operator to choose.</Dont>
+</DoDont>
+
+</Usage>
+
+<Code>
+
+## Import
+
+Import from the local UI package. The component uses `class-variance-authority`
+for variants, matching the shadcn convention so it drops into an existing setup.
+
+## Example
+
+<LiveExample name="button-variants" />
+
+## Props
+
+<PropsTable
+  rows={[
+    { name: "variant", type: `"primary" | "secondary" | "outline" | "ghost" | "destructive"`, default: `"primary"`, description: "Visual emphasis of the button." },
+    { name: "size", type: `"sm" | "md" | "lg"`, default: `"md"`, description: "Control height and horizontal padding." },
+    { name: "disabled", type: "boolean", default: "false", description: "Removes pointer events and lowers opacity." },
+    { name: "onClick", type: "(e: MouseEvent) => void", description: "Handler fired on activation, including keyboard Enter and Space." },
+    { name: "...props", type: "ButtonHTMLAttributes", description: "All native button attributes are forwarded to the underlying element." },
+  ]}
+/>
+
+</Code>
+
+<Accessibility>
+
+## Keyboard
+
+- **Tab** moves focus to the button.
+- **Enter** and **Space** activate it.
+
+## Screen reader
+
+- Renders a native `button`, so role and state are announced without extra ARIA.
+- When the label is an icon only, provide `aria-label` with the action text.
+
+## Focus and contrast
+
+- Focus shows a 2px accent ring offset from the container, visible in light and dark.
+- Label and container meet WCAG AA contrast (4.5:1) across all variants.
+- Never signal state with color alone. Pair destructive intent with a clear label.
+
+</Accessibility>
