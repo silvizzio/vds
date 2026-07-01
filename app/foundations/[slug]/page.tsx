@@ -26,7 +26,11 @@ export default async function FoundationPage({
         category={doc.frontmatter.category ?? "Foundations"}
       />
       <div className="vz-prose max-w-3xl">
-        <MDXRemote source={doc.body} components={mdxComponents} />
+        <MDXRemote
+          source={doc.body}
+          components={mdxComponents}
+          options={{ blockJS: false }}
+        />
       </div>
     </article>
   );

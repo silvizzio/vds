@@ -27,7 +27,11 @@ export default async function ComponentPage({
         category={doc.frontmatter.category}
       />
       <Tabs>
-        <MDXRemote source={doc.body} components={mdxComponents} />
+        <MDXRemote
+          source={doc.body}
+          components={mdxComponents}
+          options={{ blockJS: false }}
+        />
       </Tabs>
     </article>
   );
